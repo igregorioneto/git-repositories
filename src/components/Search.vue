@@ -72,15 +72,20 @@ export default {
         async getSearch() {
             if (this.user) {
                 await axios
-                .get(`https://api.github.com/users/${this.search}`)
-                .then(resp => console.log(resp.data))
+                .get(` https://api.github.com/search/users?q=${this.search}&page=1`)
+                .then(resp => {
+                    resp.data.total_count === 0 ? this.notFound = true: this.$emit('search', resp.data); 
+                })
                 .catch(error => this.notFound = true);
             } else {
                 await axios
                 .get(`https://api.github.com/search/repositories?q=${this.search}&page=1`)
-                .then(resp => console.log(resp.data))
+                .then(resp => {
+                    resp.data.total_count === 0 ? this.notFound = true: this.$emit('search', resp.data); 
+                })
                 .catch(error => this.notFound = true);
             }
+            
         },
     }
 }
