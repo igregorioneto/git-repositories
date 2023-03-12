@@ -8,7 +8,7 @@
   import PageNotFound from '@/components/PageNotFound.vue';
   
   export default {
-    name: 'HomeView',
+    name: 'PageNotFoundView',
     components: {
       PageNotFound,
     }

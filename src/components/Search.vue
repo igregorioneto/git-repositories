@@ -38,55 +38,64 @@
         </div>
 
 
-        <NotFound v-if="notFound" @close="notFound = false"/>
+        <NotFound v-if="notFound" @close="closeNotFound()"/>
 
     </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { computed, ref } from "vue";
+import { useStore } from 'vuex';
+
+import { useRouter } from 'vue-router';
+
 import NotFound  from '@/components/NotFound.vue';
 
 export default {
     name: 'Search',
     components: {
         NotFound
-    },  
-    data() {
-        return {
-            user: true,
-            search: '',
-            isActive: true,
-            notFound: false,
-        }
     },
-    methods: {
-        async getUsers() {
+    setup() {
+        const router = useRouter();
+        const search = ref(null);
+        const isActive = ref(true);
+        const user = ref(true);
+
+        const store = useStore();
+        const notFound = computed(() => store.state.user.notFound);
+
+        function getUsers() {
             this.user = true;
             this.isActive = true;
-        },
-        async getRepositories() {
+        }
+
+        function getRepositories() {
             this.user = false;
             this.isActive = false;
-        },
-        async getSearch() {
-            if (this.user) {
-                await axios
-                .get(` https://api.github.com/search/users?q=${this.search}&page=1`)
-                .then(resp => {
-                    resp.data.total_count === 0 ? this.notFound = true: this.$emit('search', resp.data); 
-                })
-                .catch(error => this.notFound = true);
-            } else {
-                await axios
-                .get(`https://api.github.com/search/repositories?q=${this.search}&page=1`)
-                .then(resp => {
-                    resp.data.total_count === 0 ? this.notFound = true: this.$emit('search', resp.data); 
-                })
-                .catch(error => this.notFound = true);
-            }
-            
-        },
+        }
+
+        function closeNotFound() {            
+            store.commit('user/NOT_FOUND_USER');
+        }
+
+        function getSearch() {
+            store.dispatch('user/searchUser', this.search).then(() => {
+                router.push({ name: "users" });
+            })
+        }
+
+
+        return {
+            notFound,
+            search,
+            user,
+            isActive,
+            getSearch,
+            getRepositories,
+            getUsers,
+            closeNotFound
+        };
     }
 }
 </script>

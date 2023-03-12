@@ -1,0 +1,6 @@
+export const users = {
+    SEARCH_USER: 'SEARCH_USER',
+    LIST_USERS: 'FIND_USERS',
+    FIND_USER_DETAIL: 'FIND_USER_DETAIL',
+    NOT_FOUND_USER: 'NOT_FOUND_USER'
+}

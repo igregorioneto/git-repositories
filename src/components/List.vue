@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="card" v-for="item in listSearch" :key="item.id">
+        <div class="card" v-for="item in items" :key="item.id">
             <img :src="item.avatar_url" alt="">
             <h2>{{item.login}}</h2>
         </div>
@@ -12,35 +12,19 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import axios from 'axios';
 
 export default {
     name: 'List',
     props: {
         listSearch: []
-    },  
-    methods: {
-        async getUsers() {
-            this.user = true;
-            this.isActive = true;
-        },
-        async getRepositories() {
-            this.user = false;
-            this.isActive = false;
-        },
-        async getSearch() {
-            if (this.user) {
-                await axios
-                .get(`https://api.github.com/users/${this.search}`)
-                .then(resp => console.log(resp.data))
-                .catch(error => this.notFound = true);
-            } else {
-                await axios
-                .get(`https://api.github.com/search/repositories?q=${this.search}&page=1`)
-                .then(resp => console.log(resp.data))
-                .catch(error => this.notFound = true);
-            }
-        },
+    },
+    setup(props) {
+        const items = props.listSearch.items;
+        return {
+            items
+        }
     }
 }
 </script>
