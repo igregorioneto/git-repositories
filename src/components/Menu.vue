@@ -7,10 +7,10 @@
             <div class="d-flex">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link class="nav-link active" aria-current="page" to="/">INÍCIO</router-link>
+                        <router-link class="nav-link" active-class="active" aria-current="page" to="/">INÍCIO</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" to="/favorites">FAVORITOS</router-link>
+                        <router-link class="nav-link" active-class="active" aria-current="page" to="/favorites">FAVORITOS</router-link>
                     </li>
                 </ul>
             </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 export default {
     name: 'Menu',
 }
