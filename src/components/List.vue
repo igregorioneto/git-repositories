@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="card" v-for="item in items" :key="item.id">
+        <div @click="userDetail(item.login)" class="card" v-for="item in items" :key="item.id">
             <img :src="item.avatar_url" alt="">
             <h2>{{item.login}}</h2>
         </div>
@@ -14,6 +14,7 @@
 <script>
 import { ref } from 'vue'
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 export default {
     name: 'List',
@@ -21,9 +22,16 @@ export default {
         listSearch: []
     },
     setup(props) {
+        const router = useRouter();
         const items = props.listSearch.items;
+
+        function userDetail(username) {
+            router.push({ name: "userDetail", params: { username: username } });
+        }
+
         return {
-            items
+            items,
+            userDetail
         }
     }
 }
@@ -33,6 +41,8 @@ export default {
 
 .container {
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 .card {
     width: 100%;
@@ -41,6 +51,7 @@ export default {
     background: #FFFFFF;
     box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+
 
     display: flex;
     flex-direction: row;

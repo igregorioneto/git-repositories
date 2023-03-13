@@ -6,5 +6,8 @@ export default {
     },
     NOT_FOUND_USER(state, payload) {
         state.notFound = !state.notFound;
+    },
+    FIND_USER_DETAIL(state, payload) {
+        state.byUser = payload;
     }
 }

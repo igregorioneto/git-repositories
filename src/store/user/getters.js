@@ -4,5 +4,8 @@ export default {
     },
     listUsers(state) {
         return state.listUsers;
+    },
+    byUser(state) {
+        return state.byUser;
     }
 }

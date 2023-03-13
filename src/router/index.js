@@ -13,10 +13,10 @@ const routes = [
   {
     path: '/users',
     name: 'users',
-    component: SearchListingView
+    component: SearchListingView,
   },
   {
-    path: '/user-detail',
+    path: '/users/:username',
     name: 'userDetail',
     component: DetailUserView
   },

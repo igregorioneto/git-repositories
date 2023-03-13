@@ -1,15 +1,18 @@
 <template>
     <div class="container">
         <div class="card" >
-            <img  alt="">
-            <h2>Lindemberg</h2>
-            <span>username</span>
+            <img :src="byUser.avatar_url" alt="">
+            <h2>{{ byUser.name }}</h2>
+            <span>{{ byUser.login }}</span>
         </div>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, computed, watch, ref, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
 import axios from 'axios';
 
 export default {
@@ -18,6 +21,20 @@ export default {
         listSearch: []
     },
     setup(props) {
+        const store = useStore();
+        const router = useRouter();
+
+        const byUser = computed(() => store.state.user.byUser)
+        onMounted(() => {
+            const payload = router.currentRoute.value.params.username;
+            store.dispatch('user/byUser', payload);
+            
+        })
+
+        watch(byUser.value, (newByUser, OldByUser) => console.log(newByUser, OldByUser))
+
+        return { byUser }
+
     }
 }
 </script>
