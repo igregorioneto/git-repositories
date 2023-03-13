@@ -1,9 +1,9 @@
 <template>
     <div class="container">
         <div class="card" >
-            <img :src="byUser.avatar_url" alt="">
-            <h2>{{ byUser.name }}</h2>
-            <span>{{ byUser.login }}</span>
+            <img :src="byUser?.avatar_url" alt="">
+            <h2>{{ byUser?.name }}</h2>
+            <span>{{ byUser?.login }}</span>
         </div>
     </div>
 </template>
@@ -28,7 +28,7 @@ export default {
         onMounted(() => {
             const payload = router.currentRoute.value.params.username;
             store.dispatch('user/byUser', payload);
-            
+            store.dispatch('user/repositoriesUser', payload);
         })
 
         watch(byUser.value, (newByUser, OldByUser) => console.log(newByUser, OldByUser))

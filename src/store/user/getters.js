@@ -7,5 +7,14 @@ export default {
     },
     byUser(state) {
         return state.byUser;
-    }
+    },
+    repositoriesUser(state) {
+        return state.repositoriesUser;
+    },
+    repositoriesFavorite(state) {
+        return state.repositoriesFavorite;
+    },
+    isFavorite: (state) => (id) => {
+        return state.repositoriesFavorite.some(x => x.id === id);
+    },
 }

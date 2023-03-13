@@ -3,12 +3,18 @@ import HomeView from '../views/HomeView.vue'
 import PageNotFoundView from '../views/PageNotFoundView.vue'
 import SearchListingView from '../views/SearchListingView.vue'
 import DetailUserView from '../views/DetailUserView.vue'
+import FatoriteView from '../views/FatoriteView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: FatoriteView
   },
   {
     path: '/users',

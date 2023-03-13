@@ -35,7 +35,6 @@ export default {
         search(event) {
         this.result = true;
         this.listResult = event.items;
-        console.log(event)
         }
     }
 }

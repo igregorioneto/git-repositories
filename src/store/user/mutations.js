@@ -9,5 +9,15 @@ export default {
     },
     FIND_USER_DETAIL(state, payload) {
         state.byUser = payload;
+    },
+    REPOSITORIES_USER(state, payload) {
+        state.repositoriesUser = payload;
+    },
+    REPOSITORIES_FAVORITE(state, payload) {
+        const select = state.repositoriesUser.find((x) => x.id === payload);
+        state.repositoriesFavorite = [...state.repositoriesFavorite, select];
+    },
+    REMOVE_FAVORITE(state, payload) {
+        state.repositoriesFavorite = state.repositoriesFavorite.filter((x) => x.id !== payload);
     }
 }

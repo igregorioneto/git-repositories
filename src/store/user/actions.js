@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { users } from '../mutations-types';
 
-const { SEARCH_USER, FIND_USER_DETAIL, LIST_USERS } = users;
+const { SEARCH_USER, FIND_USER_DETAIL, REPOSITORIES_USER, REPOSITORIES_FAVORITE, REMOVE_FAVORITE } = users;
 
 export default {
     async searchUser({commit}, payload){
@@ -17,5 +17,19 @@ export default {
             .then(resp => {
                 commit(FIND_USER_DETAIL, resp.data);
             });
+    },
+    async repositoriesUser({commit}, payload) {
+        const req = await axios
+            .get(`https://api.github.com/users/${payload}/repos?direction=desc`)
+            .then(resp => {
+                console.log(resp.data)
+                commit(REPOSITORIES_USER, resp.data);
+            });
+    },
+    repositoriesFavorite({commit}, payload) {
+        commit(REPOSITORIES_FAVORITE, payload);
+    },
+    removeFavorite({commit}, payload){
+        commit(REMOVE_FAVORITE, payload);
     }
 }
