@@ -4,6 +4,7 @@ import PageNotFoundView from '../views/PageNotFoundView.vue'
 import SearchListingView from '../views/SearchListingView.vue'
 import DetailUserView from '../views/DetailUserView.vue'
 import FatoriteView from '../views/FatoriteView.vue'
+import RepositoriesView from '../views/RepositoriesView.vue'
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     path: '/users',
     name: 'users',
     component: SearchListingView,
+  },
+  {
+    path: '/repositories',
+    name: 'repositories',
+    component: RepositoriesView,
   },
   {
     path: '/users/:username',

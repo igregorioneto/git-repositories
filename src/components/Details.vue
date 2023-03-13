@@ -9,11 +9,10 @@
 </template>
 
 <script>
-import { onMounted, computed, watch, ref, nextTick } from 'vue';
+import { onMounted, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
-import axios from 'axios';
 
 export default {
     name: 'Details',

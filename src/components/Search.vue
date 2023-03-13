@@ -80,9 +80,15 @@ export default {
         }
 
         function getSearch() {
-            store.dispatch('user/searchUser', this.search).then(() => {
-                router.push({ name: "users" });
-            })
+            if(this.user === true) {
+                store.dispatch('user/searchUser', this.search).then(() => {
+                    router.push({ name: "users" });
+                })
+            } else {
+                store.dispatch('user/searchRepositories', this.search).then(() => {
+                    router.push({ name: "repositories" });
+                })
+            }
         }
 
 

@@ -17,4 +17,7 @@ export default {
     isFavorite: (state) => (id) => {
         return state.repositoriesFavorite.some(x => x.id === id);
     },
+    listRepositories(state) {
+        return state.repositoriesUser;
+    },
 }

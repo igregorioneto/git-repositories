@@ -19,5 +19,10 @@ export default {
     },
     REMOVE_FAVORITE(state, payload) {
         state.repositoriesFavorite = state.repositoriesFavorite.filter((x) => x.id !== payload);
-    }
+    },
+    SEARCH_REPOSITORIES(state, payload){
+        state.repositoriesUser = [];
+        state.repositoriesUser = payload.items;
+        payload.total_count !== 0 ? state.notFound = false : state.notFound = true;
+    },
 }

@@ -1,40 +1,54 @@
 <template>
     <div class="container">
-        <div class="card-repo" v-for="item in listResult" :key="item.id">
+        <div v-if="listResult.length > 0">
+            <div class="card-repo" v-for="item in listResult" :key="item.id">
 
-            <div class="title">
-                <h2>{{ item?.name }}</h2>
-                <i 
-                    @click="setRepositoriesFavorite(item.id)" 
-                    :class="verificaFavorito(item?.id) ? 'bi bi-star-fill' : 'bi bi-star'"
-                >
-                </i>
-            </div>
+                <div class="title">
+                    <h2>{{ item?.name }}</h2>
+                    <i 
+                        @click="setRepositoriesFavorite(item.id)" 
+                        :class="verificaFavorito(item?.id) ? 'bi bi-star-fill' : 'bi bi-star'"
+                    >
+                    </i>
+                </div>
 
-            <div>
-                <p>
-                    {{ item?.description }}
-                </p>
-            </div>
+                <div>
+                    <p>
+                        {{ item?.description }}
+                    </p>
+                </div>
 
-            <div>
-                <i class="bi bi-star"></i> {{item?.stargazers_count}}
+                <div>
+                    <i class="bi bi-star"></i> {{item?.stargazers_count}}
+                </div>
             </div>
         </div>
+        <div v-else>
+            Volte ao menu inicial e realize uma pesquisa...
+        </div> 
+        
         
     </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-import axios from 'axios';
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default {
     name: 'ListRepo',
     setup() {
         const store = useStore();
-        const listResult = computed(() => store.state.user.repositoriesUser);
+        const router = useRouter();
+
+        const payload = router.currentRoute.value.name;
+
+        const listResult = payload === 'favorites' 
+            ? computed(() => store.state.user.repositoriesFavorite)
+            : computed(() => store.state.user.repositoriesUser);
+
+
 
         function setRepositoriesFavorite(payload) {
             if(verificaFavorito(payload) === true) {
@@ -43,7 +57,6 @@ export default {
                 store.dispatch('user/repositoriesFavorite', payload);
             }
         }
-
 
         function verificaFavorito(id){
             return store.getters["user/isFavorite"](id);
